@@ -1,0 +1,57 @@
+polyline{
+    fill:none;
+    stroke: darkorange;
+    stroke-width:3;
+}
+
+label{
+    font-size: 16px;
+}
+.row{
+    padding: 10px 5px 10px 5px;
+    margin-left:0px;
+    margin-right: 0px;
+
+}
+.inputs{
+    background-color: lightslategray;
+}
+.navbar{
+    margin-bottom:0px ;
+}
+.svg{
+    position: relative;
+    padding:20px 5px 20px 5px;
+    width: 1020px;
+    height: 760px;
+    display: block;
+    margin: auto;
+}
+.compass{
+    fill:			#fff;
+    stroke:			#239B56;
+    stroke-width:	1.5;
+}
+.button{
+    fill:           	#27AE60;
+    stroke:   			#1ABC9C;
+    stroke-miterlimit:	6;
+    stroke-linecap:		round;
+}
+.button:hover{
+    stroke-width:   	3;
+}
+.plus-minus{
+    fill:	#fff;
+    pointer-events: none;
+}
+
+.info{
+    font-size: 20px;
+    filter: brightness(85%);
+}
+.log{
+    position: relative;
+    height: 200px;
+    overflow: scroll;
+}
