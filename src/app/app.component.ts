@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -19,18 +19,21 @@ export class AppComponent {
   isPointsAdded: boolean; // to display svg only after points are added by user
   isValidValues: boolean; // to change color of info when user enters invalid values
 
+  // Element reference to div containing SVG element
+  @ViewChild('svgRefEle') svgRefEle: ElementRef;
+
   constructor() { // initialize values here as per your needs
     this.svgHeight = 760;
     this.svgWidth = 1020;
-    this.transMatrix  = [1, 0, 0, 1, 0, 0];
+    this.transMatrix = [1, 0, 0, 1, 0, 0];
     this.transform = "matrix(1 0 0 1 0 0)";
-    this.points = [ ];
+    this.points = [];
     this.polyline = "";
     this.isPointsAdded = false;
     this.isValidValues = true;
   }
 
-  addPoint() { // called when Add button is clicked. Adds cx and cy to points and polyline and sets them to null
+  addPoint(): void { // called when Add button is clicked. Adds cx and cy to points and polyline and sets them to null
     if (this.cx == null || this.cy == null || this.cx == undefined || this.cy == undefined || this.cx < 0 || this.cy < 0 || this.cx > this.svgWidth || this.cy > this.svgHeight)
       this.isValidValues = false;
     else {
@@ -43,7 +46,7 @@ export class AppComponent {
     }
   }
 
-  pan(dx, dy) { // used for panning left, right, top and bottom. Changes matrix 5th and 6th position by a fixed value based on button clicked
+  pan(dx, dy): void { // used for panning left, right, top and bottom. Changes matrix 5th and 6th position by a fixed value based on button clicked
     this.transMatrix[4] += dx;
     this.transMatrix[5] += dy;
 
@@ -51,7 +54,7 @@ export class AppComponent {
   }
 
 
-  zoom(scale) { // used for zoom in and zoom out. Multiplies matrix values by a fixed value and pans accordingly.
+  zoom(scale): void { // used for zoom in and zoom out. Multiplies matrix values by a fixed value and pans accordingly.
     for (var i = 0; i < this.transMatrix.length; i++) {
       this.transMatrix[i] *= scale;
     }
@@ -59,5 +62,10 @@ export class AppComponent {
     this.transMatrix[5] += (1 - scale) * this.svgHeight / 2;
 
     this.transform = "matrix(" + this.transMatrix.join(' ') + ")";
+  }
+
+  private coordinates(event: MouseEvent): void { // Tracking move event on SVG element
+    this.cx = event.clientX - this.svgRefEle.nativeElement.offsetLeft - 5;
+    this.cy = event.clientY - this.svgRefEle.nativeElement.offsetTop - 20;
   }
 }

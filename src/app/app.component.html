@@ -19,17 +19,17 @@
         <span class="info" [style.color]="isValidValues ? 'blue' : 'red'">Provide <i>x co-ordinate(0-{{svgWidth}})</i> and <i>y co-ordinate(0-{{svgHeight}})</i> in input fields and click <i>Add Point</i> button</span>
       </div>
     </div>
-    <div class="svg">
-      <svg attr.height="{{svgHeight}}" attr.width="{{svgWidth}}" *ngIf="isPointsAdded">
+    <div class="svg" #svgRefEle>
+      <svg attr.height="{{svgHeight}}" attr.width="{{svgWidth}}" *ngIf="isPointsAdded" (mousemove)="coordinates($event)" on-click="addPoint()">
         <!-- Points, Polyline, Image, Text Start -->
         <g id="map-matrix" [attr.transform]="transform" font-size="20" font-family="sans-serif" fill="black">
           <!-- add any custom map image as background to svg by uncommenting below line -->
           <!--<image xlink:href="assets/images/img.png" x="0" y="0" attr.height="{{svgHeight}}px" attr.width="{{svgWidth}}px"/>-->
           <polyline attr.points="{{polyline}}" />
           <g *ngFor="let point of points;let i = index;">
-            <circle attr.cx="{{point.cx}}" attr.cy="{{point.cy}}" r="6" />
+            <circle attr.cx="{{point.cx}}" attr.cy="{{point.cy}}" r="5" />
             <text attr.x="{{point.cx}}" attr.y="{{point.cy}}" dx="5" dy="-10" stroke="none"
-              fill="darkblue">{{i+1}}({{point.cx}},{{point.cy}})</text>
+              fill="darkblue">{{i+1}}</text>
           </g>
         </g>
         <!-- Points, Polyline, Image, Text End-->
